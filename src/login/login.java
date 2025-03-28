@@ -6,6 +6,7 @@
 package login;
 
 import adminpack.admindashboard;
+import config.Session;
 import config.dbConnectors;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,17 +39,22 @@ public class login extends javax.swing.JFrame {
             if(resultSet.next()){
                 status = resultSet.getString("u_status");
                 roles = resultSet.getString("u_role");
-                
+                Session sess = Session.getInstance();
+                sess.setUid(resultSet.getInt("u_id"));
+                sess.setFname(resultSet.getString("u_fname"));
+                 sess.setLname(resultSet.getString("u_lname"));
+                 sess.setEmail(resultSet.getString("u_email"));
+                 sess.setUsername(resultSet.getString("u_username"));
+                 sess.setRole(resultSet.getString("u_role"));
+                 sess.setStatus(resultSet.getString("u_status"));
                 return true;
             }else{
                 return false;
             }
-            
-            
         }catch (SQLException ex) {
             return false;
-        }
-
+        }          
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
